@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set } from 'firebase/database';
 
+
 // Thông tin cấu hình từ Firebase Console
 const firebaseConfig = {
 

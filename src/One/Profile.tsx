@@ -1,55 +1,54 @@
-import React, { useState } from 'react';
-import { database, ref, set } from '/home/ubuntu/Desktop/Python/reactjs/Project1/src/firebase-config.js'; // Import từ firebase-config
+import { useState } from 'react';
+import { database, ref, set } from '../firebase-config.js'; // Import từ firebase-config
 
-export const Profile = ({ name, description, img }) => {
-    const [rating, setRating] = useState(0); // Lưu số sao được chọn
-    const [feedback, setFeedback] = useState(''); // Lưu feedback người dùng nhập
-    const [isSubmitted, setIsSubmitted] = useState(false); // Trạng thái khi gửi đánh giá
+interface ProfileProps {
+  name: string;
+  description: string;
+  img: string;
+}
 
-    // Hàm xử lý khi người dùng chọn một số sao
-    const handleRating = (value) => {
+interface CuteStarProps {
+  selected: boolean;
+  onClick: () => void;
+}
+
+export const Profile = ({ name, description, img }: ProfileProps) => {
+    const [rating, setRating] = useState<number>(0);
+    const [feedback, setFeedback] = useState<string>('');
+    const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+    const handleRating = (value: number): void => {
         setRating(value);
-        setIsSubmitted(false); // Reset trạng thái gửi đánh giá khi thay đổi sao
+        setIsSubmitted(false);
     };
 
-    // Hàm xử lý khi người dùng nhập feedback
-    const handleFeedbackChange = (event) => {
+    const handleFeedbackChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         setFeedback(event.target.value);
     };
 
-    // Hàm gửi đánh giá
-    const handleSubmit = () => {
-        // Gửi dữ liệu lên Firebase
-        const userName = name; // Sử dụng tên người dùng từ props
+    const handleSubmit = (): void => {
+        const userName = name;
+    
+        // Tạo đối tượng chứa cả rating và feedback
         const feedbackData = {
             name: userName,
             rating: rating,
-            feedback: feedback,
+            feedback: feedback
         };
-
-        // Gửi rating lên Firebase
-        set(ref(database, 'Ratings/' + Date.now()), {
-            name: userName,
-            rating: rating,
-        }).then(() => {
-            console.log("Đánh giá đã được gửi lên Firebase!");
-        }).catch((error) => {
-            console.error("Lỗi khi gửi dữ liệu lên Firebase: ", error);
-        });
-
-        // Gửi feedback lên Firebase
-        set(ref(database, 'Feedback/' + Date.now()), {
-            name: userName,
-            feedback: feedback,
-        }).then(() => {
-            console.log("Feedback đã được gửi lên Firebase!");
-        }).catch((error) => {
-            console.error("Lỗi khi gửi feedback lên Firebase: ", error);
-        });
-
+    
+        // Gửi cả rating và feedback cùng lúc lên Firebase
+        set(ref(database, 'RatingsAndFeedback/' + Date.now()), feedbackData)
+            .then(() => {
+                console.log("Đánh giá và feedback đã được gửi lên Firebase!");
+            })
+            .catch((error: any) => {  // Khai báo kiểu cho error
+                console.error("Lỗi khi gửi dữ liệu lên Firebase: ", error);
+            });
+    
         setIsSubmitted(true);
         alert(`Đánh giá của bạn: ${rating} sao!\nFeedback: ${feedback}\nCảm ơn bạn đã gửi đánh giá.`);
     };
+    
 
     return (
         <div className="w-[36rem] bg-white rounded-lg p-12 flex">
@@ -78,7 +77,7 @@ export const Profile = ({ name, description, img }) => {
                     onChange={handleFeedbackChange}
                     placeholder="Nhập feedback của bạn ở đây..."
                     className="mt-4 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-300"
-                    rows="4"
+                    rows={4}
                 />
 
                 <button
@@ -93,7 +92,7 @@ export const Profile = ({ name, description, img }) => {
     );
 };
 
-const CuteStar = ({ selected, onClick }) => {
+const CuteStar = ({ selected, onClick }: CuteStarProps): JSX.Element => {
     return (
         <div onClick={onClick} className="cursor-pointer text-3xl transition duration-200">
             {selected ? (
