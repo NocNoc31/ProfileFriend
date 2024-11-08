@@ -1,0 +1,136 @@
+/* Cấu hình cho phần chính */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f3f4f6; /* Màu nền nhẹ cho toàn bộ trang */
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px; /* Giới hạn chiều rộng */
+    padding: 20px;
+    margin: 20px;
+}
+
+.profile-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Cấu hình cho các phần tử chữ */
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile-details h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.profile-details p {
+    color: #4B5563; /* Màu chữ xám nhạt */
+    margin-bottom: 12px;
+}
+
+.rating {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 12px;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db; /* Màu xám sáng */
+    border-radius: 8px;
+    margin-top: 12px;
+    resize: none;
+    min-height: 100px;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #ec4899; /* Màu hồng khi focus */
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.4);
+}
+
+/* Nút bấm */
+button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #ec4899; /* Màu hồng */
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:disabled {
+    background-color: #d1d5db;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #db2777;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Responsive cho các kích thước màn hình */
+@media (min-width: 640px) {
+    .profile-card {
+        flex-direction: row; /* Xếp theo hàng trên màn hình lớn */
+        padding: 24px;
+    }
+
+    .profile-img {
+        max-width: 50%; /* Ảnh chiếm một nửa chiều rộng */
+    }
+
+    .profile-details {
+        padding-left: 24px;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 640px) {
+    .profile-card {
+        padding: 16px; /* Giảm padding cho các màn hình nhỏ */
+    }
+
+    .profile-details {
+        padding-left: 0;
+    }
+
+    .rating {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 420px) {
+    .profile-details h2 {
+        font-size: 1.2rem; /* Giảm kích thước font trên màn hình nhỏ */
+    }
+
+    .rating {
+        font-size: 1.5rem; /* Tăng kích thước sao trên màn hình nhỏ */
+    }
+}

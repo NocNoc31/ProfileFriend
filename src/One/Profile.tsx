@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { database, ref, set } from '../firebase-config.js'; // Import từ firebase-config
+import './styles.css';
+
 
 interface ProfileProps {
   name: string;
@@ -51,12 +53,12 @@ export const Profile = ({ name, description, img }: ProfileProps) => {
     
 
     return (
-        <div className="w-[36rem] bg-white rounded-lg p-12 flex">
-            <div className="w-1/2 pr-4">
+        <div className="w-full max-w-3xl bg-white rounded-lg p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col sm:flex-row">
+            <div className="w-full sm:w-1/2 pr-4 mb-4 sm:mb-0">
                 <img src={img} alt="Profile" className="w-full h-full object-cover rounded-lg" />
             </div>
             
-            <div className="w-1/2 pl-4 flex flex-col justify-center">
+            <div className="w-full sm:w-1/2 pl-4 flex flex-col justify-center">
                 <h2 className="text-2xl font-semibold mb-2">{name}</h2>
                 <p className="text-gray-600 mb-4">{description}</p>
 
