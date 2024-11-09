@@ -5,7 +5,7 @@ import './styles.css';
 
 interface ProfileProps {
   name: string;
-  description: string;
+  description: React.ReactNode;
   img: string;
 }
 

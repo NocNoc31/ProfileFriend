@@ -1,5 +1,5 @@
 import { Profile } from "./One/Profile";
-import { Search } from "./Two/Search";
+// import { Search } from "./Two/Search";
 function App() {
   return (
     // <div className="w-full h-screen bg-[#7562c9] flex justify-center items-start overflow-auto">
